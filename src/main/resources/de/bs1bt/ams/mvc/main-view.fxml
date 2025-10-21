@@ -27,12 +27,12 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TableView fx:id="raumTableView">
+                                    <TableView fx:id="raumTable">
                                       <columns>
                                         <TableColumn fx:id="columnRaumId" prefWidth="69.0" text="ID" />
                                         <TableColumn fx:id="columnRaumBezeichnung" prefWidth="130.0" text="Bezeichnung" />
                                           <TableColumn fx:id="columnRaumGebaeude" prefWidth="75.0" text="Gebäude" />
-                                          <TableColumn fx:id="columnRaumFlaeche" prefWidth="75.0" text="Fläche" />
+                                          <TableColumn fx:id="columnRaumFlaecheInQm" prefWidth="75.0" text="Fläche" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -47,7 +47,7 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Gesamtfläche" />
-                                    <Label fx:id="lblFlaeche" text="? m²" GridPane.columnIndex="1" />
+                                    <Label fx:id="labelGesamtflaecheInQm" text="? m²" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <ButtonBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0">

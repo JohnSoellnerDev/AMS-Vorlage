@@ -1,5 +1,6 @@
 package de.bs1bt.ams;
 
+import de.bs1bt.ams.model.Raum;
 import de.bs1bt.ams.mvc.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +17,9 @@ public class AMSApplication extends Application {
         stage.setTitle("BS1 BT - Asset Management System");
         stage.setScene(scene);
 
-        MainController mc = fxmlLoader.getController();
-        mc.zeigeRaeumeInTabelle();
-        mc.zeigeGesamtflaeche();
+        MainController mainController = fxmlLoader.getController();
+        mainController.zeigeRaeumeInTabelle();
+        mainController.zeigeGesamtflaeche();
 
         stage.show();
     }

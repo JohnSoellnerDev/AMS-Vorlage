@@ -13,9 +13,9 @@ class RaumMySQLDataGatewayTest {
 
     @BeforeAll
     static void beforeAll() {
-        RaumMySQLDataGateway rg = new RaumMySQLDataGateway();
+        RaumMySQLDataGateway raumGateway = new RaumMySQLDataGateway();
         try {
-            rg.loescheTabelle();
+            raumGateway.loescheTabelle();
         } catch (DataGatewayException e) {
             // in Ordnung, falls Tabelle noch nicht existiert
         }
@@ -23,53 +23,53 @@ class RaumMySQLDataGatewayTest {
 
     @Test
     void testKomplett() {
-        RaumMySQLDataGateway rg = new RaumMySQLDataGateway();
+        RaumMySQLDataGateway raumGateway = new RaumMySQLDataGateway();
         try {
-            rg.erstelleTabelle();
+            raumGateway.erstelleTabelle();
 
-            int id = rg.erstelle(new Raum("U1", "IT-C"));
-            id = rg.erstelle(new Raum("U2", "IT-C"));
+            int id = raumGateway.erstelle(new Raum("U1", "IT-C"));
+            id = raumGateway.erstelle(new Raum("U2", "IT-C"));
 
-            ArrayList<Raum> raueme = rg.holeAlle();
-            assertEquals(2, raueme.size());
+            ArrayList<Raum> raeume = raumGateway.holeAlle();
+            assertEquals(2, raeume.size());
 
-            assertEquals("U1", raueme.get(0).getBezeichnung());
-            assertEquals("IT-C", raueme.get(0).getGebaeude());
-            assertEquals("U2", raueme.get(1).getBezeichnung());
-            assertEquals("IT-C", raueme.get(1).getGebaeude());
+            assertEquals("U1", raeume.get(0).getBezeichnung());
+            assertEquals("IT-C", raeume.get(0).getGebaeude());
+            assertEquals("U2", raeume.get(1).getBezeichnung());
+            assertEquals("IT-C", raeume.get(1).getGebaeude());
 
             // hole zuletzt erstellen Datensatz
-            Raum raum = rg.hole(id);
+            Raum raum = raumGateway.hole(id);
             assertEquals("U2", raum.getBezeichnung());
             assertEquals("IT-C", raum.getGebaeude());
 
 
             // Erstelle Raum zum Aktualisieren und späteren Löschen
             Raum raumNeu = new Raum("121", "Hauptgebäude");
-            id = rg.erstelle(raumNeu);
+            id = raumGateway.erstelle(raumNeu);
             // Test über Auslesen
-            Raum raumVergleich = rg.hole(id);
+            Raum raumVergleich = raumGateway.hole(id);
             assertEquals("121", raumVergleich.getBezeichnung());
             assertEquals("Hauptgebäude", raumVergleich.getGebaeude());
-            assertEquals(3, rg.holeAlle().size());
+            assertEquals(3, raumGateway.holeAlle().size());
 
             // aktualisiere Raum
             raumNeu.setBezeichnung("123");
-            rg.aktualisiere(raumNeu);
-            raumVergleich = rg.hole(id);
+            raumGateway.aktualisiere(raumNeu);
+            raumVergleich = raumGateway.hole(id);
             assertEquals("123", raumVergleich.getBezeichnung());
 
-            rg.loesche(raumVergleich);
+            raumGateway.loesche(raumVergleich);
 
-            assertEquals(2, rg.holeAlle().size());
+            assertEquals(2, raumGateway.holeAlle().size());
 
-            rg.erstelle(new Raum("U3", "IT-C"));
-            rg.erstelle(new Raum("U4", "IT-C"));
-            rg.erstelle(new Raum("U5", "IT-C"));
-            rg.erstelle(new Raum("U6", "IT-C"));
-            rg.erstelle(new Raum("U7", "IT-C"));
+            raumGateway.erstelle(new Raum("U3", "IT-C"));
+            raumGateway.erstelle(new Raum("U4", "IT-C"));
+            raumGateway.erstelle(new Raum("U5", "IT-C"));
+            raumGateway.erstelle(new Raum("U6", "IT-C"));
+            raumGateway.erstelle(new Raum("U7", "IT-C"));
 
-            assertEquals(7, rg.holeAlle().size());
+            assertEquals(7, raumGateway.holeAlle().size());
         } catch (DataGatewayException e) {
             fail(e.getMessage());
         } catch (Exception e) {

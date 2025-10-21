@@ -22,11 +22,11 @@
                <Label text="Länge in cm" GridPane.rowIndex="2" />
               <Label text="Breite in cm" GridPane.rowIndex="3" />
               <Label text="Fläche in qm" GridPane.rowIndex="4" />
-               <TextField fx:id="txtBezeichnung" GridPane.columnIndex="1" />
-               <TextField fx:id="txtGebaeude" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               <TextField fx:id="txtLaenge" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-               <TextField fx:id="txtBreite" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-               <Label fx:id="lblFlaeche" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               <TextField fx:id="textFieldBezeichnung" GridPane.columnIndex="1" />
+               <TextField fx:id="textFieldGebaeude" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <TextField fx:id="textFieldLaengeInCm" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <TextField fx:id="textFieldBreiteInCm" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               <Label fx:id="labelFlaecheInQm" GridPane.columnIndex="1" GridPane.rowIndex="4" />
            </children>
         </GridPane>
    </content>

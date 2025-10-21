@@ -19,9 +19,9 @@ import java.util.Optional;
 
 public class MainController {
     @FXML
-    private Label lblFlaeche;
+    private Label labelGesamtflaecheInQm;
     @FXML
-    private TableView<Raum> raumTableView;
+    private TableView<Raum> raumTable;
     @FXML
     private TableColumn columnRaumId;
     @FXML
@@ -29,7 +29,7 @@ public class MainController {
     @FXML
     private TableColumn columnRaumGebaeude;
     @FXML
-    private TableColumn columnRaumFlaeche;
+    private TableColumn columnRaumFlaecheInQm;
 
     public void mnuUeberAMS(ActionEvent actionEvent) {
         Alert ueberAMS = new Alert(Alert.AlertType.INFORMATION);
@@ -48,28 +48,28 @@ public class MainController {
          https://www.informatik-aktuell.de/entwicklung/programmiersprachen/mvvm-mit-javafx.html
          https://jenkov.com/tutorials/javafx/tableview.html
          */
-        raumTableView.getItems().clear();
+        raumTable.getItems().clear();
 
         columnRaumId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnRaumBezeichnung.setCellValueFactory(new PropertyValueFactory<>("bezeichnung"));
         columnRaumGebaeude.setCellValueFactory(new PropertyValueFactory<>("gebaeude"));
-        columnRaumFlaeche.setCellValueFactory(new PropertyValueFactory<>("flaecheInQm"));
+        columnRaumFlaecheInQm.setCellValueFactory(new PropertyValueFactory<>("flaecheInQm"));
 
         // Iterator Pattern
         try {
             // TODO Was bedeutet diese "feste Kopplung" für die Austauschbarkeit bei Verwendung einer anderen Datenbank?
             RaumMySQLDataGateway raumMySQLDataGateway = new RaumMySQLDataGateway();
 
-            ObservableList<Raum> data = FXCollections.observableArrayList();
-            ArrayList<Raum> liste = raumMySQLDataGateway.holeAlle();
-            Iterator<Raum> iterator = liste.iterator();
+            ObservableList<Raum> raumObservableListe = FXCollections.observableArrayList();
+            ArrayList<Raum> raeumeListe = raumMySQLDataGateway.holeAlle();
+            Iterator<Raum> iterator = raeumeListe.iterator();
             while (iterator.hasNext()) {
-                Raum r = iterator.next();
+                Raum raum = iterator.next();
                 // TODO Testen Sie die Ausgabe der Raum-Objekte
                 // System.out.println(r);
-                raumTableView.getItems().add(r);
+                raumTable.getItems().add(raum);
             }
-            raumTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+            raumTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         } catch (DataGatewayException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Die Räume können nicht aus der Datenbank ausgelesen werden.");
             alert.show();
@@ -135,20 +135,20 @@ public class MainController {
     }
 
     public void btnRaumBearbeitenAction(ActionEvent actionEvent) {
-        Raum raumBearbeiten = raumTableView.getSelectionModel().getSelectedItem();
+        Raum raumZurBearbeitung = raumTable.getSelectionModel().getSelectedItem();
 
-        if(null == raumBearbeiten) {
+        if(null == raumZurBearbeitung) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Bitte wählen Sie einen Raum aus der Liste aus.");
             alert.setHeaderText("Kein Raum selektiert");
             alert.show();
             return;
         }
 
-        if(null != zeigeRaumDialogView("Raum bearbeiten", raumBearbeiten)) {
+        if(null != zeigeRaumDialogView("Raum bearbeiten", raumZurBearbeitung)) {
             try {
                 // TODO Was bedeutet diese "feste Kopplung für die Austauschbarkeit bei Verwendung einer anderen Datenbank?
                 RaumMySQLDataGateway raumMySQLDataGateway = new RaumMySQLDataGateway();
-                raumMySQLDataGateway.aktualisiere(raumBearbeiten);
+                raumMySQLDataGateway.aktualisiere(raumZurBearbeitung);
                 zeigeRaeumeInTabelle();
                 zeigeGesamtflaeche();
             } catch (DataGatewayException e) {
@@ -158,9 +158,9 @@ public class MainController {
     }
 
     public void btnRaumLoeschenAction(ActionEvent actionEvent) {
-        Raum raumBearbeiten = raumTableView.getSelectionModel().getSelectedItem();
+        Raum raumZumLoeschen = raumTable.getSelectionModel().getSelectedItem();
 
-        if(null == raumBearbeiten) {
+        if(null == raumZumLoeschen) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Bitte wählen Sie einen Raum aus der Liste aus.");
             alert.setHeaderText("Kein Raum selektiert");
             alert.show();
@@ -174,7 +174,7 @@ public class MainController {
             try {
                 // TODO Was bedeutet diese "feste Kopplung für die Austauschbarkeit bei Verwendung einer anderen Datenbank?
                 RaumMySQLDataGateway raumMySQLDataGateway = new RaumMySQLDataGateway();
-                raumMySQLDataGateway.loesche(raumBearbeiten);
+                raumMySQLDataGateway.loesche(raumZumLoeschen);
                 zeigeRaeumeInTabelle();
                 zeigeGesamtflaeche();
             } catch (DataGatewayException e) {

@@ -10,32 +10,31 @@ public class RaumDialogController extends Dialog<Raum> {
     private Raum raumModel;
 
     @FXML
-    private TextField txtBezeichnung;
+    private TextField textFieldBezeichnung;
     @FXML
-    private TextField txtGebaeude;
+    private TextField textFieldGebaeude;
     @FXML
-    private TextField txtLaenge;
+    private TextField textFieldLaengeInCm;
     @FXML
-    private TextField txtBreite;
+    private TextField textFieldBreiteInCm;
     @FXML
-    private Label lblFlaeche;
+    private Label labelFlaecheInQm;
 
+    public Raum getRaum() throws Exception {
+        raumModel.setBezeichnung(textFieldBezeichnung.getText());
+        raumModel.setGebaeude(textFieldGebaeude.getText());
+        raumModel.setBreiteInCm(Double.parseDouble(textFieldBreiteInCm.getText()));
+        raumModel.setLaengeInCm(Double.parseDouble(textFieldLaengeInCm.getText()));
+        return raumModel;
+    }
 
     public void setRaum(Raum raumModel) {
         this.raumModel = raumModel;
-        txtBezeichnung.setText(raumModel.getBezeichnung());
-        txtGebaeude.setText(raumModel.getGebaeude());
-        txtLaenge.setText(String.valueOf(raumModel.getLaengeInCm()));
-        txtBreite.setText(String.valueOf(raumModel.getBreiteInCm()));
-        lblFlaeche.setText(String.valueOf(raumModel.getFlaecheInQm()) + " m²");
-    }
-
-    public Raum getRaum() throws Exception {
-        raumModel.setBezeichnung(txtBezeichnung.getText());
-        raumModel.setGebaeude(txtGebaeude.getText());
-        raumModel.setBreiteInCm(Double.parseDouble(txtBreite.getText()));
-        raumModel.setLaengeInCm(Double.parseDouble(txtLaenge.getText()));
-        return raumModel;
+        textFieldBezeichnung.setText(raumModel.getBezeichnung());
+        textFieldGebaeude.setText(raumModel.getGebaeude());
+        textFieldLaengeInCm.setText(String.valueOf(raumModel.getLaengeInCm()));
+        textFieldBreiteInCm.setText(String.valueOf(raumModel.getBreiteInCm()));
+        labelFlaecheInQm.setText(raumModel.getFlaecheInQm() + " m²");
     }
 
 }
