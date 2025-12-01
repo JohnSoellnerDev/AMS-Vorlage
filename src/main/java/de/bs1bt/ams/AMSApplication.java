@@ -2,9 +2,11 @@ package de.bs1bt.ams;
 
 import de.bs1bt.ams.model.Raum;
 import de.bs1bt.ams.mvc.MainController;
-import de.bs1bt.ams.repositories.RaumMySQLRepository;
+import de.bs1bt.ams.repositories.AbstractRepositoryFactory;
+import de.bs1bt.ams.repositories.RepositoryType;
 import de.bs1bt.ams.repositories.RaumRAMRepository;
 import de.bs1bt.ams.repositories.RaumRepository;
+import de.bs1bt.ams.repositories.SimpleRepositoryFactoryFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,8 +16,6 @@ import java.io.IOException;
 
 public class AMSApplication extends Application {
     
-    private static final boolean USE_RAM_REPOSITORY = true;
-    
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AMSApplication.class.getResource("mvc/main-view.fxml"));
@@ -24,24 +24,23 @@ public class AMSApplication extends Application {
         stage.setScene(scene);
 
         MainController mainController = fxmlLoader.getController();
-        
-        RaumRepository raumRepository = createRaumRepository();
+
+        SimpleRepositoryFactoryFactory factoryFactory = new SimpleRepositoryFactoryFactory();
+
+        AbstractRepositoryFactory repositoryFactory = factoryFactory.create(RepositoryType.DEV);
+
+        RaumRepository raumRepository = repositoryFactory.createRaumRepository();
+
+        if (raumRepository instanceof RaumRAMRepository) {
+            addTestData((RaumRAMRepository) raumRepository);
+        }
+
         mainController.setRaumRepository(raumRepository);
         
         mainController.zeigeRaeumeInTabelle();
         mainController.zeigeGesamtflaeche();
 
         stage.show();
-    }
-    
-    private RaumRepository createRaumRepository() {
-        if (USE_RAM_REPOSITORY) {
-            RaumRAMRepository ramRepo = new RaumRAMRepository();
-            addTestData(ramRepo);
-            return ramRepo;
-        } else {
-            return new RaumMySQLRepository();
-        }
     }
     
     private void addTestData(RaumRAMRepository ramRepo) {
