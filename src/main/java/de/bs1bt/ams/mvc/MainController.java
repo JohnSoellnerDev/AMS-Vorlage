@@ -1,11 +1,9 @@
 package de.bs1bt.ams.mvc;
 
-import de.bs1bt.ams.gateways.DataGatewayException;
-import de.bs1bt.ams.gateways.RaumMySQLDataGateway;
 import de.bs1bt.ams.model.Raum;
+import de.bs1bt.ams.repositories.RaumRepository;
+import de.bs1bt.ams.repositories.RepositoryException;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,11 +11,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 public class MainController {
+    
+    private RaumRepository raumRepository;
+    
     @FXML
     private Label labelGesamtflaecheInQm;
     @FXML
@@ -30,6 +31,14 @@ public class MainController {
     private TableColumn columnRaumGebaeude;
     @FXML
     private TableColumn columnRaumFlaecheInQm;
+
+    public void setRaumRepository(RaumRepository raumRepository) {
+        this.raumRepository = raumRepository;
+    }
+    
+    public RaumRepository getRaumRepository() {
+        return raumRepository;
+    }
 
     public void mnuUeberAMS(ActionEvent actionEvent) {
         Alert ueberAMS = new Alert(Alert.AlertType.INFORMATION);
@@ -57,20 +66,15 @@ public class MainController {
 
         // Iterator Pattern
         try {
-            // TODO Was bedeutet diese "feste Kopplung" für die Austauschbarkeit bei Verwendung einer anderen Datenbank?
-            RaumMySQLDataGateway raumMySQLDataGateway = new RaumMySQLDataGateway();
 
-            ObservableList<Raum> raumObservableListe = FXCollections.observableArrayList();
-            ArrayList<Raum> raeumeListe = raumMySQLDataGateway.holeAlle();
+            List<Raum> raeumeListe = raumRepository.holeAlle();
             Iterator<Raum> iterator = raeumeListe.iterator();
             while (iterator.hasNext()) {
                 Raum raum = iterator.next();
-                // TODO Testen Sie die Ausgabe der Raum-Objekte
-                // System.out.println(r);
                 raumTable.getItems().add(raum);
             }
             raumTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        } catch (DataGatewayException e) {
+        } catch (RepositoryException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Die Räume können nicht aus der Datenbank ausgelesen werden.");
             alert.show();
         }
@@ -84,9 +88,8 @@ public class MainController {
     }
 
     public void zeigeGesamtflaeche() {
-        RaumMySQLDataGateway raumMySQLDataGateway = new RaumMySQLDataGateway();
-        // TODO Modellieren und implementieren Sie den Algorithmus zur Berechnung der Gesamtfläche. Nutzen Sie dazu das vorhandene raumDataGateway
-
+        // Verwendung des injizierten Repositories
+        // TODO Modellieren und implementieren Sie den Algorithmus zur Berechnung der Gesamtfläche. Nutzen Sie dazu das vorhandene raumRepository
     }
 
     public Raum zeigeRaumDialogView(String title, Raum raumModel) {
@@ -122,9 +125,7 @@ public class MainController {
         try {
             Raum neuerRaum = new Raum("Bezeichnung", "Gebäude");
             if(null != zeigeRaumDialogView("Raum anlegen", neuerRaum)) {
-                // TODO Was bedeutet diese "feste Kopplung" für die Austauschbarkeit bei Verwendung einer anderen Datenbank?
-                RaumMySQLDataGateway raumMySQLDataGateway = new RaumMySQLDataGateway();
-                raumMySQLDataGateway.erstelle(neuerRaum);
+                raumRepository.erstelle(neuerRaum);
                 zeigeRaeumeInTabelle();
                 zeigeGesamtflaeche();
             }
@@ -146,12 +147,10 @@ public class MainController {
 
         if(null != zeigeRaumDialogView("Raum bearbeiten", raumZurBearbeitung)) {
             try {
-                // TODO Was bedeutet diese "feste Kopplung für die Austauschbarkeit bei Verwendung einer anderen Datenbank?
-                RaumMySQLDataGateway raumMySQLDataGateway = new RaumMySQLDataGateway();
-                raumMySQLDataGateway.aktualisiere(raumZurBearbeitung);
+                raumRepository.aktualisiere(raumZurBearbeitung);
                 zeigeRaeumeInTabelle();
                 zeigeGesamtflaeche();
-            } catch (DataGatewayException e) {
+            } catch (RepositoryException e) {
                 zeigeDatenbankAlert(e.getMessage());
             }
         }
@@ -172,12 +171,10 @@ public class MainController {
         Optional<ButtonType> clickedButton = alert.showAndWait();
         if(clickedButton.get() == ButtonType.OK) {
             try {
-                // TODO Was bedeutet diese "feste Kopplung für die Austauschbarkeit bei Verwendung einer anderen Datenbank?
-                RaumMySQLDataGateway raumMySQLDataGateway = new RaumMySQLDataGateway();
-                raumMySQLDataGateway.loesche(raumZumLoeschen);
+                raumRepository.loesche(raumZumLoeschen);
                 zeigeRaeumeInTabelle();
                 zeigeGesamtflaeche();
-            } catch (DataGatewayException e) {
+            } catch (RepositoryException e) {
                 zeigeDatenbankAlert(e.getMessage());
             }
         }

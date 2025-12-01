@@ -16,6 +16,10 @@ module de.bs1bt.ams.ams {
 
     opens de.bs1bt.ams.mvc to javafx.fxml;
     exports de.bs1bt.ams.mvc;
+    
+    opens de.bs1bt.ams.repositories to javafx.fxml;
+    exports de.bs1bt.ams.repositories;
+    
     exports de.bs1bt.ams;
     opens de.bs1bt.ams to javafx.fxml;
 }
