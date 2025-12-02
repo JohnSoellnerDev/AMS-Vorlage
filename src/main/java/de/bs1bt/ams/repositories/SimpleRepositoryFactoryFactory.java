@@ -16,15 +16,12 @@ public class SimpleRepositoryFactoryFactory {
         if (type == null) {
             throw new IllegalArgumentException("Repository-Typ darf nicht null sein");
         }
-        
-        switch (type) {
-            case DEV:
-                return new RAMRepositoryFactory();
-            case PROD:
-                return new MySQLRepositoryFactory();
-            default:
-                throw new IllegalArgumentException("Unbekannter Repository-Typ: " + type);
-        }
+
+        return switch (type) {
+            case DEV -> new RAMRepositoryFactory();
+            case PROD -> new MySQLRepositoryFactory();
+            default -> throw new IllegalArgumentException("Unbekannter Repository-Typ: " + type);
+        };
     }
 }
 
