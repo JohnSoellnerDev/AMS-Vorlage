@@ -14,7 +14,7 @@ public class Main {
 
         System.out.println();
 
-        System.out.println("=== KingBurger Bestellung ===");
+        System.out.println("KingBurger Bestellung:");
         BurgerFactory kingFactory = new KingBurgerFactory();
         BestellService kingService = new BestellService(kingFactory);
         kingService.bestelleMenue();
