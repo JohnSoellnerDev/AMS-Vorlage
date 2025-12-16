@@ -1,0 +1,406 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
+  <diagram id="task3-sequence-diagram" name="Sequenzdiagramm Task 3">
+    <mxGraphModel dx="607" dy="657" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="main-head" value=":Main" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF6666;strokeColor=#b85450;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="main-lifeline" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90" y="80" as="sourcePoint" />
+            <mxPoint x="90" y="1700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sensor-head" value=":ServerRoomSensor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1EE800;strokeColor=#82b366;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="40" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sensor-lifeline" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="80" as="sourcePoint" />
+            <mxPoint x="310" y="1700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="temp-head" value=":TemperatureConsoleMonitor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCC00;strokeColor=#d6b656;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="480" y="40" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="temp-lifeline" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="80" as="sourcePoint" />
+            <mxPoint x="570" y="1700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="warning-head" value=":WarningConsoleMonitor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCC00;strokeColor=#d6b656;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="760" y="40" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="warning-lifeline" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="840" y="80" as="sourcePoint" />
+            <mxPoint x="840" y="1700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="console-head" value=":Console" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#949494;strokeColor=#666666;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1020" y="40" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="console-lifeline" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1070" y="80" as="sourcePoint" />
+            <mxPoint x="1070" y="1700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="main-activation" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF6666;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="82" y="100" width="16" height="1580" as="geometry" />
+        </mxCell>
+        <mxCell id="msg1" value="new ServerRoomSensor(&quot;Serverraum 1&quot;)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1" target="sensor-head">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="98" y="120" as="sourcePoint" />
+            <mxPoint x="302" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sensor-act-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1EE800;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="302" y="80" width="16" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="msg2" value="new TemperatureConsoleMonitor(sensor)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1" target="temp-head">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="98" y="190" as="sourcePoint" />
+            <mxPoint x="562" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="temp-act-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCC00;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="562" y="80" width="16" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="msg3" value="addObserver(this)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="562" y="220" as="sourcePoint" />
+            <mxPoint x="318" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sensor-act-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1EE800;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="302" y="220" width="16" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ret2" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="302" y="255" as="sourcePoint" />
+            <mxPoint x="562" y="255" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg4" value="new WarningConsoleMonitor(sensor)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="98" y="320" as="sourcePoint" />
+            <mxPoint x="832" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="warning-act-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCC00;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="832" y="320" width="16" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="msg5" value="addObserver(this)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="832" y="350" as="sourcePoint" />
+            <mxPoint x="318" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sensor-act-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1EE800;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="302" y="350" width="16" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ret4" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="302" y="385" as="sourcePoint" />
+            <mxPoint x="832" y="385" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="frame1" value="setTemperature(22.5)" style="shape=umlFrame;whiteSpace=wrap;html=1;width=150;height=25;fillColor=#6E6E6E;strokeColor=#666666;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="30" y="460" width="1110" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="msg6" value="setTemperature(22.5)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="98" y="510" as="sourcePoint" />
+            <mxPoint x="302" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sensor-act-4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1EE800;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="302" y="510" width="16" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="msg7" value="notifyObservers()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry x="-0.2381" y="20" relative="1" as="geometry">
+            <mxPoint x="318" y="540" as="sourcePoint" />
+            <mxPoint x="318" y="560" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="350" y="540" />
+              <mxPoint x="350" y="560" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg8" value="update()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="580" as="sourcePoint" />
+            <mxPoint x="562" y="580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="temp-act-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCC00;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="562" y="580" width="16" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="msg9" value="getTemperature()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="562" y="605" as="sourcePoint" />
+            <mxPoint x="318" y="605" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg10" value="22.5" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="630" as="sourcePoint" />
+            <mxPoint x="562" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg11" value="println(&quot;Temperatur: 22.5&quot;)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="578" y="650" as="sourcePoint" />
+            <mxPoint x="1062" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="console-act-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6E6E6E;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="1062" y="650" width="16" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ret-console-1" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1062" y="665" as="sourcePoint" />
+            <mxPoint x="578" y="665" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ret6" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="562" y="675" as="sourcePoint" />
+            <mxPoint x="318" y="675" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg12" value="update()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="700" as="sourcePoint" />
+            <mxPoint x="832" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="warning-act-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCC00;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="832" y="700" width="16" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="msg13" value="getTemperature()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="832" y="725" as="sourcePoint" />
+            <mxPoint x="318" y="725" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg14" value="22.5" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="745" as="sourcePoint" />
+            <mxPoint x="832" y="745" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ret7" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="832" y="755" as="sourcePoint" />
+            <mxPoint x="318" y="755" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="frame2" value="setTemperature(28.0)" style="shape=umlFrame;whiteSpace=wrap;html=1;width=150;height=25;fillColor=#6E6E6E;strokeColor=#666666;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="30" y="810" width="1110" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="msg15" value="setTemperature(28.0)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="98" y="860" as="sourcePoint" />
+            <mxPoint x="302" y="860" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sensor-act-5" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1EE800;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="302" y="860" width="16" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="msg16" value="notifyObservers()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry x="-0.2381" y="30" relative="1" as="geometry">
+            <mxPoint x="318" y="890" as="sourcePoint" />
+            <mxPoint x="318" y="910" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="350" y="890" />
+              <mxPoint x="350" y="910" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg17" value="update()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="930" as="sourcePoint" />
+            <mxPoint x="562" y="930" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="temp-act-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCC00;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="562" y="930" width="16" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="msg18" value="getTemperature()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="562" y="955" as="sourcePoint" />
+            <mxPoint x="318" y="955" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg19" value="28.0" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="980" as="sourcePoint" />
+            <mxPoint x="562" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg20" value="println(&quot;Temperatur: 28.0&quot;)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="578" y="1000" as="sourcePoint" />
+            <mxPoint x="1062" y="1000" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="console-act-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6E6E6E;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="1062" y="1000" width="16" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ret-console-2" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1062" y="1015" as="sourcePoint" />
+            <mxPoint x="578" y="1015" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ret8" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="562" y="1025" as="sourcePoint" />
+            <mxPoint x="318" y="1025" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg21" value="update()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="1050" as="sourcePoint" />
+            <mxPoint x="832" y="1050" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="warning-act-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCC00;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="832" y="1050" width="16" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="msg22" value="getTemperature()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="832" y="1075" as="sourcePoint" />
+            <mxPoint x="318" y="1075" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg23" value="28.0" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="1095" as="sourcePoint" />
+            <mxPoint x="832" y="1095" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ret9" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="832" y="1105" as="sourcePoint" />
+            <mxPoint x="318" y="1105" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="frame3" value="setTemperature(31.7) - ALARM!" style="shape=umlFrame;whiteSpace=wrap;html=1;width=200;height=30;fillColor=#FF6666;strokeColor=#FF0000;fontStyle=1;fontColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="30" y="1160" width="1110" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="msg24" value="setTemperature(31.7)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="98" y="1215" as="sourcePoint" />
+            <mxPoint x="302" y="1215" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sensor-act-6" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1EE800;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="302" y="1215" width="16" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="msg25" value="notifyObservers()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry x="-0.2381" y="20" relative="1" as="geometry">
+            <mxPoint x="318" y="1245" as="sourcePoint" />
+            <mxPoint x="318" y="1265" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="350" y="1245" />
+              <mxPoint x="350" y="1265" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg26" value="update()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="1290" as="sourcePoint" />
+            <mxPoint x="562" y="1290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="temp-act-4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCC00;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="562" y="1290" width="16" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="msg27" value="getTemperature()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="562" y="1315" as="sourcePoint" />
+            <mxPoint x="318" y="1315" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg28" value="31.7" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="1340" as="sourcePoint" />
+            <mxPoint x="562" y="1340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg29" value="println(&quot;Temperatur: 31.7&quot;)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="578" y="1360" as="sourcePoint" />
+            <mxPoint x="1062" y="1360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="console-act-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6E6E6E;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="1062" y="1360" width="16" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ret-console-3" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1062" y="1375" as="sourcePoint" />
+            <mxPoint x="578" y="1375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ret10" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="562" y="1385" as="sourcePoint" />
+            <mxPoint x="318" y="1385" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg30" value="update()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="1415" as="sourcePoint" />
+            <mxPoint x="832" y="1415" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="warning-act-4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCC00;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="832" y="1415" width="16" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="msg31" value="getTemperature()" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="832" y="1440" as="sourcePoint" />
+            <mxPoint x="318" y="1440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg32" value="31.7" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="318" y="1465" as="sourcePoint" />
+            <mxPoint x="832" y="1465" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg33" value="println(&quot;Alarm es ist zu heiß: 31.7&quot;)" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=2;strokeColor=#FF0000;fontColor=#FF0000;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="848" y="1490" as="sourcePoint" />
+            <mxPoint x="1062" y="1490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="console-act-4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF6666;strokeColor=#FF0000;" parent="1" vertex="1">
+          <mxGeometry x="1062" y="1490" width="16" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ret-console-4" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;strokeColor=#FF0000;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1062" y="1505" as="sourcePoint" />
+            <mxPoint x="848" y="1505" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ret11" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1;entryX=0.063;entryY=0.947;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1" target="frame3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="832" y="1520" as="sourcePoint" />
+            <mxPoint x="318" y="1520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
