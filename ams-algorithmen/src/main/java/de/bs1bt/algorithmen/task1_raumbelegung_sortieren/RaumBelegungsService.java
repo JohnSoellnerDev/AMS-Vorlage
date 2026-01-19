@@ -8,13 +8,18 @@ public class RaumBelegungsService {
      * @param raeume in/out
      */
     public static void sortiereRaumArray(Raum[] raeume) {
-        // TODO Aufgabe 1 – Sortieren (ORDER BY)
-        //
-        // - Sortieren Sie das übergebene Array der Räume
-        //   aufsteigend nach der Belegung.
-        // - Verwenden Sie einen beliebigen Sortieralgorithmus
-        //   (z. B. Selection Sort, Bubble Sort oder Quicksort).
-        // - Verwenden Sie KEINE Bibliotheksfunktionen zum Sortieren.
+        for (int i = 0; i < raeume.length - 1; i++) {
+            int minIndex = i;
 
+            for (int j = i + 1; j < raeume.length; j++) {
+                if (raeume[j].getBelegung() <= raeume[minIndex].getBelegung()) {
+                    minIndex = j;
+                }
+            }
+
+            var temp = raeume[i];
+            raeume[i] = raeume[minIndex];
+            raeume[minIndex] = temp;
+        }
     }
 }

@@ -1,0 +1,10 @@
+Inventarnummer;Bezeichnung;defekt
+1;Drucker;false
+5;Drucker;true
+12;Drucker;false
+3;Monitor;false
+7;Monitor;false
+8;Netzwerkgerät;true
+42;Netzwerkgerät;false
+
+--- Bericht B wird in 'Bericht B.csv' geschrieben ---

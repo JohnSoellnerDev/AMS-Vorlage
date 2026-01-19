@@ -30,13 +30,19 @@ public class GeraeteService {
      * Implementiert als BubbleSort.
      */
     public static void orderByBezeichnung(Geraet[] geraete) {
-        // TODO Aufgabe 2b – GROUP BY
-        //
-        // - Gehen Sie davon aus, dass das Geräte-Array bereits sortiert ist.
-        // - Ermitteln Sie für jede Bezeichnung die Anzahl der Geräte.
-        // - Nutzen Sie keine Maps oder Collections.
-        // - Erkennen Sie Gruppenwechsel beim Durchlaufen des Arrays.
+        for (int i = 0; i < geraete.length - 1; i++) {
+            for (int j = 0; j < geraete.length - 1 - i; j++) {
+                int vergleich = geraete[j].getBezeichnung().compareTo(geraete[j + 1].getBezeichnung());
+                boolean isFrontNumberBigger = geraete[j].getInventarnummer() > geraete[j + 1].getInventarnummer();
 
+                // Tausch wenn: Bezeichnung größer ODER Bezeichnung gleich und Inventarnummer größer
+                if (vergleich > 0 || (vergleich == 0 && isFrontNumberBigger)) {
+                    var temp = geraete[j];
+                    geraete[j] = geraete[j + 1];
+                    geraete[j + 1] = temp;
+                }
+            }
+        }
     }
 
     /**
@@ -57,7 +63,7 @@ public class GeraeteService {
         printHeadlineA();
         for (Geraet g : geraete) {
             printZeileA(g.getInventarnummer(), g.getBezeichnung(), g.isDefekt());
-         }
+        }
     }
     /**
      * Anzahl der Geräte pro Bezeichnung
@@ -74,17 +80,21 @@ public class GeraeteService {
 
         orderByBezeichnung(geraete);
 
-        // TODO Aufgabe 2b – GROUP BY
-        //
-        // - Gehen Sie davon aus, dass das Geräte-Array bereits sortiert ist.
-        // - Ermitteln Sie für jede Bezeichnung die Anzahl der Geräte.
-        // - Nutzen Sie keine Maps oder Collections.
-        // - Erkennen Sie Gruppenwechsel beim Durchlaufen des Arrays.
-        //
-        // Hinweis: Nutzen Sie zum Drucken der Überschriften und Zeilen die obigen Methoden
-        // - printHeadlineB();
-        // - printZeileB(aktuelleBez, anzahl);
+        printHeadlineB();
 
+        var aktuelleBezeichnung = geraete[0].getBezeichnung();
+        var anzahl = 0;
+
+        for (Geraet geraet : geraete) {
+            if (!geraet.getBezeichnung().equals(aktuelleBezeichnung)) {
+                printZeileB(aktuelleBezeichnung, anzahl);
+                aktuelleBezeichnung = geraet.getBezeichnung();
+                anzahl = 0;
+            }
+            anzahl++;
+        }
+
+        printZeileB(aktuelleBezeichnung, anzahl);
     }
 
     /**
@@ -102,19 +112,30 @@ public class GeraeteService {
         }
         orderByBezeichnung(geraete);
 
-
-        // TODO Aufgabe 2c – GROUP BY mit Aggregaten
-        //
-        // - Ermitteln Sie pro Bezeichnung:
-        //   * Gesamtanzahl
-        //   * Anzahl defekter Geräte
-        //   * Anzahl nicht defekter Geräte
-        // - Nutzen Sie weiterhin das sortierte Array.
-        // - Denken Sie an den letzten Gruppenwechsel am Ende des Arrays.
-        //
-        // Hinweis: Nutzen Sie zum Drucken der Überschriften und Zeilen die obigen Methoden
-        // - printHeadlineC();
-        // - printZeileC(aktuelleBez, anzahl, defekt, nichtDefekt);
-
+        printHeadlineC();
+        
+        String aktuelleBezeichnung = geraete[0].getBezeichnung();
+        int anzahl = 0;
+        int defekt = 0;
+        int nichtDefekt = 0;
+        
+        for (Geraet g : geraete) {
+            if (!g.getBezeichnung().equals(aktuelleBezeichnung)) {
+                // Gruppenwechsel: vorherige Gruppe ausgeben
+                printZeileC(aktuelleBezeichnung, anzahl, defekt, nichtDefekt);
+                aktuelleBezeichnung = g.getBezeichnung();
+                anzahl = 0;
+                defekt = 0;
+                nichtDefekt = 0;
+            }
+            anzahl++;
+            if (g.isDefekt()) {
+                defekt++;
+            } else {
+                nichtDefekt++;
+            }
+        }
+        // Letzte Gruppe ausgeben
+        printZeileC(aktuelleBezeichnung, anzahl, defekt, nichtDefekt);
     }
 }
