@@ -59,12 +59,12 @@ public class GeraeteService {
 
         orderByBezeichnung(geraete);
 
-        // Aufrufbeispiele der print-Funktionen
         printHeadlineA();
         for (Geraet g : geraete) {
             printZeileA(g.getInventarnummer(), g.getBezeichnung(), g.isDefekt());
         }
     }
+
     /**
      * Anzahl der Geräte pro Bezeichnung
      */
@@ -135,6 +135,7 @@ public class GeraeteService {
                 nichtDefekt++;
             }
         }
+
         // Letzte Gruppe ausgeben
         printZeileC(aktuelleBezeichnung, anzahl, defekt, nichtDefekt);
     }

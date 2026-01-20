@@ -19,7 +19,25 @@ public class FahrplanController {
         // - Verwenden Sie die compare()-Methode von DateTime.
         // - Brechen Sie ab, sobald das Ergebnisarray gefüllt ist.
 
+        var abfahrten = fahrplanService.getAbfahrten(haltestellenId);
         Abfahrt[] naechste = new Abfahrt[maxAbfahrten];
+        DateTime jetzt = DateTime.now();
+
+        var anzahlGefunden = 0;
+
+        for (Abfahrt abfahrt : abfahrten) {
+            if (anzahlGefunden > maxAbfahrten) {
+                break;
+            }
+
+            var result = jetzt.compare(abfahrt.getAbfahrtsZeit());
+
+            if (result < 0) {
+                naechste[anzahlGefunden] = abfahrt;
+
+                anzahlGefunden++;
+            }
+        }
 
 
         return naechste;

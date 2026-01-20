@@ -13,12 +13,12 @@ public class Task2GeraeteBerichteTest {
     private Geraet[] beispielGeraete() {
         // entspricht inhaltlich Ihrer Beispiel-Tabelle (Drucker/Monitor/Netzwerkgerät)
         return new Geraet[] {
-                new Geraet(1,  "Drucker",       false),
-                new Geraet(12, "Drucker",       false),
-                new Geraet(5,  "Drucker",       true),
                 new Geraet(3,  "Monitor",       false),
-                new Geraet(7,  "Monitor",       false),
+                new Geraet(1,  "Drucker",       false),
+                new Geraet(5,  "Drucker",       true),
                 new Geraet(8,  "Netzwerkgerät", true),
+                new Geraet(7,  "Monitor",       false),
+                new Geraet(12, "Drucker",       false),
                 new Geraet(42, "Netzwerkgerät", false)
         };
     }
