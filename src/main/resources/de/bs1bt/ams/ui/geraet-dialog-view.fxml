@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<DialogPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.bs1bt.ams.mvc.RaumDialogController">
+<DialogPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.bs1bt.ams.ui.GeraetDialogController">
    <content>
         <GridPane>
            <columnConstraints>
@@ -14,19 +14,16 @@
               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
            <children>
               <Label text="Bezeichnung" />
-               <Label text="Gebäude" GridPane.rowIndex="1" />
-               <Label text="Länge in cm" GridPane.rowIndex="2" />
-              <Label text="Breite in cm" GridPane.rowIndex="3" />
-              <Label text="Fläche in qm" GridPane.rowIndex="4" />
+               <Label text="Typ" GridPane.rowIndex="1" />
+               <Label text="Raum ID" GridPane.rowIndex="2" />
+              <Label text="Inventarnummer" GridPane.rowIndex="3" />
                <TextField fx:id="textFieldBezeichnung" GridPane.columnIndex="1" />
-               <TextField fx:id="textFieldGebaeude" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               <TextField fx:id="textFieldLaengeInCm" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-               <TextField fx:id="textFieldBreiteInCm" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-               <Label fx:id="labelFlaecheInQm" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               <TextField fx:id="textFieldTyp" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <TextField fx:id="textFieldRaumId" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <TextField fx:id="textFieldInventarnummer" GridPane.columnIndex="1" GridPane.rowIndex="3" />
            </children>
         </GridPane>
    </content>

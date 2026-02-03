@@ -1,4 +1,4 @@
-package de.bs1bt.ams.mvc;
+package de.bs1bt.ams.ui;
 
 import de.bs1bt.ams.model.Geraet;
 import javafx.fxml.FXML;

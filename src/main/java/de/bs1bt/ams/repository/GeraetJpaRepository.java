@@ -1,4 +1,4 @@
-package de.bs1bt.ams.repositories;
+package de.bs1bt.ams.repository;
 
 import de.bs1bt.ams.model.Geraet;
 import org.springframework.data.jpa.repository.JpaRepository;

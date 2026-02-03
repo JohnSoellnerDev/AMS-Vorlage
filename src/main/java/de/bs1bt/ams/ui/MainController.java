@@ -1,10 +1,12 @@
-package de.bs1bt.ams.mvc;
+package de.bs1bt.ams.ui;
 
 import de.bs1bt.ams.model.Raum;
 import de.bs1bt.ams.model.Geraet;
-import de.bs1bt.ams.repositories.RaumRepository;
-import de.bs1bt.ams.repositories.GeraetRepository;
-import de.bs1bt.ams.repositories.RepositoryException;
+import de.bs1bt.ams.model.Gebaeude;
+import de.bs1bt.ams.repository.RaumRepository;
+import de.bs1bt.ams.repository.GeraetRepository;
+import de.bs1bt.ams.repository.GebaeudeRepository;
+import de.bs1bt.ams.repository.RepositoryException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -132,6 +134,18 @@ public class MainController {
         }
     }
 
+    private GebaeudeRepository gebaeudeRepository;
+
+    public void setGebaeudeRepository(GebaeudeRepository gebaeudeRepository) {
+        this.gebaeudeRepository = gebaeudeRepository;
+    }
+
+    public GebaeudeRepository getGebaeudeRepository() {
+        return gebaeudeRepository;
+    }
+
+    // ... (existing code)
+
     public Raum zeigeRaumDialogView(String title, Raum raumModel) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -139,6 +153,11 @@ public class MainController {
             DialogPane raumDialogPane = fxmlLoader.load();
 
             RaumDialogController raumDialogController = fxmlLoader.getController();
+
+            // Pass available buildings to the controller
+            if (gebaeudeRepository != null) {
+                raumDialogController.setMoeglicheGebaeude(gebaeudeRepository.holeAlle());
+            }
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(raumDialogPane);
@@ -151,7 +170,7 @@ public class MainController {
                 return raumDialogController.getRaum();
             }
 
-        } catch (IOException e) {
+        } catch (IOException | RepositoryException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
@@ -163,7 +182,7 @@ public class MainController {
 
     public void btnRaumAnlegenAction(ActionEvent actionEvent) {
         try {
-            Raum neuerRaum = new Raum("Bezeichnung", "Gebäude");
+            Raum neuerRaum = new Raum("Bezeichnung", null);
             if (null != zeigeRaumDialogView("Raum anlegen", neuerRaum)) {
                 raumRepository.erstelle(neuerRaum);
                 zeigeRaeumeInTabelle();
@@ -321,6 +340,120 @@ public class MainController {
             try {
                 geraetRepository.loesche(geraetZumLoeschen);
                 zeigeGeraeteInTabelle();
+            } catch (RepositoryException e) {
+                zeigeDatenbankAlert(e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    private TableView<Gebaeude> gebaeudeTable;
+    @FXML
+    private TableColumn columnGebaeudeId;
+    @FXML
+    private TableColumn columnGebaeudeBezeichnung;
+    @FXML
+    private TableColumn columnGebaeudeAdresse;
+
+    public void zeigeGebaeudeInTabelle() {
+        gebaeudeTable.getItems().clear();
+
+        columnGebaeudeId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnGebaeudeBezeichnung.setCellValueFactory(new PropertyValueFactory<>("bezeichnung"));
+        columnGebaeudeAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+
+        try {
+            List<Gebaeude> gebaeudeListe = gebaeudeRepository.holeAlle();
+            for (Gebaeude gebaeude : gebaeudeListe) {
+                gebaeudeTable.getItems().add(gebaeude);
+            }
+            gebaeudeTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        } catch (RepositoryException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,
+                    "Die Gebäude können nicht aus der Datenbank ausgelesen werden.");
+            alert.show();
+        }
+    }
+
+    public Gebaeude zeigeGebaeudeDialogView(String title, Gebaeude gebaeudeModel) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation((getClass().getResource("gebaeude-dialog-view.fxml")));
+            DialogPane gebaeudeDialogPane = fxmlLoader.load();
+
+            GebaeudeDialogController gebaeudeDialogController = fxmlLoader.getController();
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(gebaeudeDialogPane);
+            dialog.setTitle(title);
+
+            gebaeudeDialogController.setGebaeude(gebaeudeModel);
+
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+            if (clickedButton.get() == ButtonType.OK) {
+                return gebaeudeDialogController.getGebaeude();
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.setTitle("Fehler");
+            alert.show();
+        }
+        return null;
+    }
+
+    public void btnGebaeudeAnlegenAction(ActionEvent actionEvent) {
+        try {
+            Gebaeude neuesGebaeude = new Gebaeude("Bezeichnung", "Adresse");
+            if (null != zeigeGebaeudeDialogView("Gebäude anlegen", neuesGebaeude)) {
+                gebaeudeRepository.erstelle(neuesGebaeude);
+                zeigeGebaeudeInTabelle();
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.show();
+        }
+    }
+
+    public void btnGebaeudeBearbeitenAction(ActionEvent actionEvent) {
+        Gebaeude gebaeudeZurBearbeitung = gebaeudeTable.getSelectionModel().getSelectedItem();
+
+        if (null == gebaeudeZurBearbeitung) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Bitte wählen Sie ein Gebäude aus der Liste aus.");
+            alert.setHeaderText("Kein Gebäude selektiert");
+            alert.show();
+            return;
+        }
+
+        if (null != zeigeGebaeudeDialogView("Gebäude bearbeiten", gebaeudeZurBearbeitung)) {
+            try {
+                gebaeudeRepository.aktualisiere(gebaeudeZurBearbeitung);
+                zeigeGebaeudeInTabelle();
+            } catch (RepositoryException e) {
+                zeigeDatenbankAlert(e.getMessage());
+            }
+        }
+    }
+
+    public void btnGebaeudeLoeschenAction(ActionEvent actionEvent) {
+        Gebaeude gebaeudeZumLoeschen = gebaeudeTable.getSelectionModel().getSelectedItem();
+
+        if (null == gebaeudeZumLoeschen) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Bitte wählen Sie ein Gebäude aus der Liste aus.");
+            alert.setHeaderText("Kein Gebäude selektiert");
+            alert.show();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Wollen Sie das Gebäude wirklich löschen?");
+        alert.setHeaderText("Kein Gebäude selektiert");
+        Optional<ButtonType> clickedButton = alert.showAndWait();
+        if (clickedButton.get() == ButtonType.OK) {
+            try {
+                gebaeudeRepository.loesche(gebaeudeZumLoeschen);
+                zeigeGebaeudeInTabelle();
             } catch (RepositoryException e) {
                 zeigeDatenbankAlert(e.getMessage());
             }

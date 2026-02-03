@@ -26,13 +26,33 @@ USE `ams_fx_test`;
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `gebaeude`
+--
+
+CREATE TABLE `gebaeude` (
+  `gebaeude_id` int(11) NOT NULL,
+  `bezeichnung` varchar(20) DEFAULT NULL,
+  `adresse` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `gebaeude`
+--
+
+INSERT INTO `gebaeude` (`gebaeude_id`, `bezeichnung`, `adresse`) VALUES
+(1, 'IT-C', 'Musterstraße 1'),
+(2, 'Hauptgebäude', 'Hauptstraße 10');
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `raeume`
 --
 
 CREATE TABLE `raeume` (
   `raum_id` int(11) NOT NULL,
   `bezeichnung` varchar(20) DEFAULT NULL,
-  `gebaeude` varchar(20) DEFAULT NULL,
+  `gebaeude_id` int(11) DEFAULT NULL,
   `laenge_in_cm` double DEFAULT NULL,
   `breite_in_cm` double DEFAULT NULL,
   `verantwortlicher` varchar(20) DEFAULT NULL
@@ -42,30 +62,53 @@ CREATE TABLE `raeume` (
 -- Daten für Tabelle `raeume`
 --
 
-INSERT INTO `raeume` (`raum_id`, `bezeichnung`, `gebaeude`, `laenge_in_cm`, `breite_in_cm`, `verantwortlicher`) VALUES
-(1, 'U1', 'IT-C', 500, 500, NULL),
-(2, 'U2', 'IT-C', 500, 500, NULL),
-(3, '121', 'Hauptgebäude', 500, 500, NULL);
+INSERT INTO `raeume` (`raum_id`, `bezeichnung`, `gebaeude_id`, `laenge_in_cm`, `breite_in_cm`, `verantwortlicher`) VALUES
+(1, 'U1', 1, 500, 500, NULL),
+(2, 'U2', 1, 500, 500, NULL),
+(3, '121', 2, 500, 500, NULL);
 
 --
 -- Indizes der exportierten Tabellen
 --
 
 --
+-- Indizes für die Tabelle `gebaeude`
+--
+ALTER TABLE `gebaeude`
+  ADD PRIMARY KEY (`gebaeude_id`);
+
+--
 -- Indizes für die Tabelle `raeume`
 --
 ALTER TABLE `raeume`
-  ADD PRIMARY KEY (`raum_id`);
+  ADD PRIMARY KEY (`raum_id`),
+  ADD KEY `fk_gebaeude` (`gebaeude_id`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
 --
 
 --
+-- AUTO_INCREMENT für Tabelle `gebaeude`
+--
+ALTER TABLE `gebaeude`
+  MODIFY `gebaeude_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT für Tabelle `raeume`
 --
 ALTER TABLE `raeume`
   MODIFY `raum_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints der exportierten Tabellen
+--
+
+--
+-- Constraints der Tabelle `raeume`
+--
+ALTER TABLE `raeume`
+  ADD CONSTRAINT `fk_gebaeude` FOREIGN KEY (`gebaeude_id`) REFERENCES `gebaeude` (`gebaeude_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

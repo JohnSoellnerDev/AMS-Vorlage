@@ -1,4 +1,4 @@
-package de.bs1bt.ams.repositories;
+package de.bs1bt.ams.repository;
 
 public class RepositoryException extends Exception {
     

@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.bs1bt.ams.mvc.MainController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.bs1bt.ams.ui.MainController">
     <center>
       <GridPane>
          <columnConstraints>
@@ -19,6 +19,21 @@
                   <content>
                         <VBox prefHeight="522.0" prefWidth="726.0">
                            <children>
+                              <ButtonBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0">
+                                <buttons>
+                                  <Button id="btnRaumAnlegen" mnemonicParsing="false" onAction="#btnRaumAnlegenAction" text="Raum anlegen" />
+                                    <Button id="btnRaumBearbeiten" mnemonicParsing="false" onAction="#btnRaumBearbeitenAction" text="Raum bearbeiten" />
+                                    <Button id="btnRaumLoeschen" mnemonicParsing="false" onAction="#btnRaumLoeschenAction" text="Raum löschen" />
+                                </buttons>
+                              </ButtonBar>
+                           </children>
+                        </VBox>
+                  </content>
+                </Tab>
+                <Tab text="Gebäude">
+                  <content>
+                        <VBox prefHeight="522.0" prefWidth="726.0">
+                           <children>
                               <GridPane>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -27,34 +42,20 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TableView fx:id="raumTable">
+                                    <TableView fx:id="gebaeudeTable">
                                       <columns>
-                                        <TableColumn fx:id="columnRaumId" prefWidth="69.0" text="ID" />
-                                        <TableColumn fx:id="columnRaumBezeichnung" prefWidth="130.0" text="Bezeichnung" />
-                                          <TableColumn fx:id="columnRaumGebaeude" prefWidth="75.0" text="Gebäude" />
-                                          <TableColumn fx:id="columnRaumFlaecheInQm" prefWidth="75.0" text="Fläche" />
+                                        <TableColumn fx:id="columnGebaeudeId" prefWidth="50.0" text="ID" />
+                                        <TableColumn fx:id="columnGebaeudeBezeichnung" prefWidth="150.0" text="Bezeichnung" />
+                                        <TableColumn fx:id="columnGebaeudeAdresse" prefWidth="200.0" text="Adresse" />
                                       </columns>
                                     </TableView>
                                  </children>
                               </GridPane>
-                              <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label text="Gesamtfläche" />
-                                    <Label fx:id="labelGesamtflaecheInQm" text="? m²" GridPane.columnIndex="1" />
-                                 </children>
-                              </GridPane>
                               <ButtonBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0">
                                 <buttons>
-                                  <Button id="btnRaumAnlegen" mnemonicParsing="false" onAction="#btnRaumAnlegenAction" text="Raum anlegen" />
-                                    <Button id="btnRaumBearbeiten" mnemonicParsing="false" onAction="#btnRaumBearbeitenAction" text="Raum bearbeiten" />
-                                    <Button id="btnRaumLoeschen" mnemonicParsing="false" onAction="#btnRaumLoeschenAction" text="Raum löschen" />
+                                  <Button mnemonicParsing="false" onAction="#btnGebaeudeAnlegenAction" text="Gebäude anlegen" />
+                                    <Button mnemonicParsing="false" onAction="#btnGebaeudeBearbeitenAction" text="Gebäude bearbeiten" />
+                                    <Button mnemonicParsing="false" onAction="#btnGebaeudeLoeschenAction" text="Gebäude löschen" />
                                 </buttons>
                               </ButtonBar>
                            </children>

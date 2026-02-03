@@ -1,4 +1,4 @@
-package de.bs1bt.ams.singleton;
+package de.bs1bt.ams.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

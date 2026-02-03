@@ -1,4 +1,4 @@
-package de.bs1bt.ams.controller;
+package de.bs1bt.ams.api;
 
 import de.bs1bt.ams.model.Geraet;
 import de.bs1bt.ams.service.GeraetService;
@@ -25,7 +25,7 @@ public class GeraetController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Geraet> getGeraetById(@PathVariable int id) {
+    public ResponseEntity<Geraet> getGeraetById(@PathVariable Integer id) {
         return geraetService.getGeraetById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

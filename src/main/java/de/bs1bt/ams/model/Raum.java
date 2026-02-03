@@ -1,17 +1,33 @@
 package de.bs1bt.ams.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "raeume")
 public class Raum {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "raum_id")
     private int id;
+
+    @Column(name = "bezeichnung")
     private String bezeichnung;
-    private String gebaeude;
+
+    @ManyToOne
+    @JoinColumn(name = "gebaeude_id")
+    private Gebaeude gebaeude;
+
+    @Column(name = "breite_in_cm")
     private double breiteInCm;
+
+    @Column(name = "laenge_in_cm")
     private double laengeInCm;
 
     public Raum() {
     }
 
-    public Raum(String bezeichnung, String gebaeude) throws Exception {
+    public Raum(String bezeichnung, Gebaeude gebaeude) throws Exception {
         setId(-1);
         setBezeichnung(bezeichnung);
         setGebaeude(gebaeude);
@@ -19,7 +35,7 @@ public class Raum {
         setLaengeInCm(0);
     }
 
-    public Raum(int id, String bezeichnung, String gebaeude, double breiteInCm, double laengeInCm) throws Exception {
+    public Raum(int id, String bezeichnung, Gebaeude gebaeude, double breiteInCm, double laengeInCm) throws Exception {
         setId(id);
         setBezeichnung(bezeichnung);
         setGebaeude(gebaeude);
@@ -43,11 +59,11 @@ public class Raum {
         this.bezeichnung = bezeichnung;
     }
 
-    public String getGebaeude() {
+    public Gebaeude getGebaeude() {
         return gebaeude;
     }
 
-    public void setGebaeude(String gebaeude) {
+    public void setGebaeude(Gebaeude gebaeude) {
         this.gebaeude = gebaeude;
     }
 
@@ -99,7 +115,7 @@ public class Raum {
         return "Raum{" +
                 "id=" + id +
                 ", bezeichnung='" + bezeichnung + '\'' +
-                ", gebaeude='" + gebaeude + '\'' +
+                ", gebaeude=" + (gebaeude != null ? gebaeude.getId() : "null") +
                 ", breiteInCm=" + breiteInCm +
                 ", laengeInCm=" + laengeInCm +
                 ", flaecheInQm=" + getFlaecheInQm() +

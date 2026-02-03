@@ -1,4 +1,4 @@
-package de.bs1bt.ams.repositories;
+package de.bs1bt.ams.repository;
 
 public class MySQLRepositoryFactory extends AbstractRepositoryFactory {
 
@@ -13,5 +13,10 @@ public class MySQLRepositoryFactory extends AbstractRepositoryFactory {
     @Override
     public GeraetRepository createGeraetRepository() {
         return new GeraetMySQLRepository();
+    }
+
+    @Override
+    public GebaeudeRepository createGebaeudeRepository() {
+        return new GebaeudeMySQLRepository();
     }
 }

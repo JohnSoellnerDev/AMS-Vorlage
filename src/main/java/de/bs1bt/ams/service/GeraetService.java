@@ -1,7 +1,7 @@
 package de.bs1bt.ams.service;
 
 import de.bs1bt.ams.model.Geraet;
-import de.bs1bt.ams.repositories.GeraetJpaRepository;
+import de.bs1bt.ams.repository.GeraetJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class GeraetService {
         return geraetRepository.findAll();
     }
 
-    public Optional<Geraet> getGeraetById(int id) {
+    public Optional<Geraet> getGeraetById(Integer id) {
         return geraetRepository.findById(id);
     }
 

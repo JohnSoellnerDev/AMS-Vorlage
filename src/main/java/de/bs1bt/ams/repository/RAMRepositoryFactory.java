@@ -1,4 +1,4 @@
-package de.bs1bt.ams.repositories;
+package de.bs1bt.ams.repository;
 
 public class RAMRepositoryFactory extends AbstractRepositoryFactory {
 
@@ -14,5 +14,10 @@ public class RAMRepositoryFactory extends AbstractRepositoryFactory {
     @Override
     public GeraetRepository createGeraetRepository() {
         return new GeraetRAMRepository();
+    }
+
+    @Override
+    public GebaeudeRepository createGebaeudeRepository() {
+        return new GebaeudeRAMRepository();
     }
 }

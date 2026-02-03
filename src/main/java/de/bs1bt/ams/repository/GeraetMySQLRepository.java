@@ -1,7 +1,7 @@
-package de.bs1bt.ams.repositories;
+package de.bs1bt.ams.repository;
 
 import de.bs1bt.ams.model.Geraet;
-import de.bs1bt.ams.singleton.DBCredentialsSingleton;
+import de.bs1bt.ams.config.DBCredentialsSingleton;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class GeraetMySQLRepository implements GeraetRepository {
                     count++;
                 }
 
-                if (count == 0 || geraet == null) {
+                if (count == 0) {
                     throw new RepositoryException("Es ist kein Gerät mit der geraet_id=" + id + " vorhanden.");
                 }
             }
