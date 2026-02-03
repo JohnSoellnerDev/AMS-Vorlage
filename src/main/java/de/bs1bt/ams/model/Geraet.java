@@ -1,14 +1,29 @@
 package de.bs1bt.ams.model;
 
+import jakarta.persistence.*;
+
 /**
  * Repräsentiert ein Gerät in einem Raum.
  */
+@Entity
+@Table(name = "geraete")
 public class Geraet {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "geraet_id")
     private int id;
+
+    @Column(name = "bezeichnung")
     private String bezeichnung;
+
+    @Column(name = "typ")
     private String typ;
-    private int raumId;
+
+    @Column(name = "raum_id")
+    private Integer raumId;
+
+    @Column(name = "inventarnummer")
     private String inventarnummer;
 
     public Geraet() {
@@ -18,11 +33,11 @@ public class Geraet {
         setId(-1);
         setBezeichnung(bezeichnung);
         setTyp(typ);
-        setRaumId(-1);
+        setRaumId(null);
         setInventarnummer("");
     }
 
-    public Geraet(int id, String bezeichnung, String typ, int raumId, String inventarnummer) {
+    public Geraet(int id, String bezeichnung, String typ, Integer raumId, String inventarnummer) {
         setId(id);
         setBezeichnung(bezeichnung);
         setTyp(typ);
@@ -54,11 +69,11 @@ public class Geraet {
         this.typ = typ;
     }
 
-    public int getRaumId() {
+    public Integer getRaumId() {
         return raumId;
     }
 
-    public void setRaumId(int raumId) {
+    public void setRaumId(Integer raumId) {
         this.raumId = raumId;
     }
 
