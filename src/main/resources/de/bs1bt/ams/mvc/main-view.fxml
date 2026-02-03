@@ -63,7 +63,36 @@
                 </Tab>
                 <Tab text="Geräte">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="640.0" />
+                        <VBox prefHeight="522.0" prefWidth="726.0">
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <TableView fx:id="geraetTable">
+                                      <columns>
+                                        <TableColumn fx:id="columnGeraetId" prefWidth="50.0" text="ID" />
+                                        <TableColumn fx:id="columnGeraetBezeichnung" prefWidth="130.0" text="Bezeichnung" />
+                                          <TableColumn fx:id="columnGeraetTyp" prefWidth="100.0" text="Typ" />
+                                          <TableColumn fx:id="columnGeraetRaumId" prefWidth="50.0" text="Raum ID" />
+                                          <TableColumn fx:id="columnGeraetInventarnummer" prefWidth="120.0" text="Inventarnummer" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </GridPane>
+                              <ButtonBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0">
+                                <buttons>
+                                  <Button id="btnGeraetAnlegen" mnemonicParsing="false" onAction="#btnGeraetAnlegenAction" text="Gerät anlegen" />
+                                    <Button id="btnGeraetBearbeiten" mnemonicParsing="false" onAction="#btnGeraetBearbeitenAction" text="Gerät bearbeiten" />
+                                    <Button id="btnGeraetLoeschen" mnemonicParsing="false" onAction="#btnGeraetLoeschenAction" text="Gerät löschen" />
+                                </buttons>
+                              </ButtonBar>
+                           </children>
+                        </VBox>
                   </content>
                 </Tab>
                   <Tab text="Mitarbeiter">

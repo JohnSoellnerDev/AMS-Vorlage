@@ -1,7 +1,9 @@
 package de.bs1bt.ams.mvc;
 
 import de.bs1bt.ams.model.Raum;
+import de.bs1bt.ams.model.Geraet;
 import de.bs1bt.ams.repositories.RaumRepository;
+import de.bs1bt.ams.repositories.GeraetRepository;
 import de.bs1bt.ams.repositories.RepositoryException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,9 +18,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class MainController {
-    
+
     private RaumRepository raumRepository;
-    
+    private GeraetRepository geraetRepository;
+
     @FXML
     private Label labelGesamtflaecheInQm;
     @FXML
@@ -32,19 +35,41 @@ public class MainController {
     @FXML
     private TableColumn columnRaumFlaecheInQm;
 
+    @FXML
+    private TableView<Geraet> geraetTable;
+    @FXML
+    private TableColumn columnGeraetId;
+    @FXML
+    private TableColumn columnGeraetBezeichnung;
+    @FXML
+    private TableColumn columnGeraetTyp;
+    @FXML
+    private TableColumn columnGeraetRaumId;
+    @FXML
+    private TableColumn columnGeraetInventarnummer;
+
     public void setRaumRepository(RaumRepository raumRepository) {
         this.raumRepository = raumRepository;
     }
-    
+
     public RaumRepository getRaumRepository() {
         return raumRepository;
+    }
+
+    public void setGeraetRepository(GeraetRepository geraetRepository) {
+        this.geraetRepository = geraetRepository;
+    }
+
+    public GeraetRepository getGeraetRepository() {
+        return geraetRepository;
     }
 
     public void mnuUeberAMS(ActionEvent actionEvent) {
         Alert ueberAMS = new Alert(Alert.AlertType.INFORMATION);
         ueberAMS.setTitle("Über AMS");
         ueberAMS.setHeaderText("BS1 BT GmbH");
-        ueberAMS.setContentText("Diese didaktische Software wird von den Schülerinnen und Schülern der Berufsschule 1 in Bayreuth entwickelt.");
+        ueberAMS.setContentText(
+                "Diese didaktische Software wird von den Schülerinnen und Schülern der Berufsschule 1 in Bayreuth entwickelt.");
         ueberAMS.show();
     }
 
@@ -54,8 +79,9 @@ public class MainController {
 
     public void zeigeRaeumeInTabelle() {
         /*
-         https://www.informatik-aktuell.de/entwicklung/programmiersprachen/mvvm-mit-javafx.html
-         https://jenkov.com/tutorials/javafx/tableview.html
+         * https://www.informatik-aktuell.de/entwicklung/programmiersprachen/mvvm-mit-
+         * javafx.html
+         * https://jenkov.com/tutorials/javafx/tableview.html
          */
         raumTable.getItems().clear();
 
@@ -75,7 +101,8 @@ public class MainController {
             }
             raumTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         } catch (RepositoryException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Die Räume können nicht aus der Datenbank ausgelesen werden.");
+            Alert alert = new Alert(Alert.AlertType.ERROR,
+                    "Die Räume können nicht aus der Datenbank ausgelesen werden.");
             alert.show();
         }
     }
@@ -88,8 +115,21 @@ public class MainController {
     }
 
     public void zeigeGesamtflaeche() {
-        // Verwendung des injizierten Repositories
-        // TODO Modellieren und implementieren Sie den Algorithmus zur Berechnung der Gesamtfläche. Nutzen Sie dazu das vorhandene raumRepository
+        // Berechnung der Gesamtfläche aller Räume
+        try {
+            List<Raum> raeumeListe = raumRepository.holeAlle();
+            double gesamtflaeche = 0.0;
+
+            for (Raum raum : raeumeListe) {
+                gesamtflaeche += raum.getFlaecheInQm();
+            }
+
+            // Formatierte Ausgabe mit zwei Nachkommastellen
+            labelGesamtflaecheInQm.setText(String.format("%.2f qm", gesamtflaeche));
+        } catch (RepositoryException e) {
+            labelGesamtflaecheInQm.setText("Fehler beim Berechnen");
+            zeigeDatenbankAlert("Die Gesamtfläche konnte nicht berechnet werden: " + e.getMessage());
+        }
     }
 
     public Raum zeigeRaumDialogView(String title, Raum raumModel) {
@@ -107,13 +147,13 @@ public class MainController {
             raumDialogController.setRaum(raumModel);
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
-            if(clickedButton.get() == ButtonType.OK) {
+            if (clickedButton.get() == ButtonType.OK) {
                 return raumDialogController.getRaum();
             }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch(Exception e) {
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
             alert.setTitle("Fehler");
             alert.show();
@@ -124,7 +164,7 @@ public class MainController {
     public void btnRaumAnlegenAction(ActionEvent actionEvent) {
         try {
             Raum neuerRaum = new Raum("Bezeichnung", "Gebäude");
-            if(null != zeigeRaumDialogView("Raum anlegen", neuerRaum)) {
+            if (null != zeigeRaumDialogView("Raum anlegen", neuerRaum)) {
                 raumRepository.erstelle(neuerRaum);
                 zeigeRaeumeInTabelle();
                 zeigeGesamtflaeche();
@@ -138,14 +178,14 @@ public class MainController {
     public void btnRaumBearbeitenAction(ActionEvent actionEvent) {
         Raum raumZurBearbeitung = raumTable.getSelectionModel().getSelectedItem();
 
-        if(null == raumZurBearbeitung) {
+        if (null == raumZurBearbeitung) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Bitte wählen Sie einen Raum aus der Liste aus.");
             alert.setHeaderText("Kein Raum selektiert");
             alert.show();
             return;
         }
 
-        if(null != zeigeRaumDialogView("Raum bearbeiten", raumZurBearbeitung)) {
+        if (null != zeigeRaumDialogView("Raum bearbeiten", raumZurBearbeitung)) {
             try {
                 raumRepository.aktualisiere(raumZurBearbeitung);
                 zeigeRaeumeInTabelle();
@@ -159,7 +199,7 @@ public class MainController {
     public void btnRaumLoeschenAction(ActionEvent actionEvent) {
         Raum raumZumLoeschen = raumTable.getSelectionModel().getSelectedItem();
 
-        if(null == raumZumLoeschen) {
+        if (null == raumZumLoeschen) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Bitte wählen Sie einen Raum aus der Liste aus.");
             alert.setHeaderText("Kein Raum selektiert");
             alert.show();
@@ -169,11 +209,118 @@ public class MainController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Wollen Sie den Raum wirklich löschen?");
         alert.setHeaderText("Kein Raum selektiert");
         Optional<ButtonType> clickedButton = alert.showAndWait();
-        if(clickedButton.get() == ButtonType.OK) {
+        if (clickedButton.get() == ButtonType.OK) {
             try {
                 raumRepository.loesche(raumZumLoeschen);
                 zeigeRaeumeInTabelle();
                 zeigeGesamtflaeche();
+            } catch (RepositoryException e) {
+                zeigeDatenbankAlert(e.getMessage());
+            }
+        }
+    }
+
+    public void zeigeGeraeteInTabelle() {
+        geraetTable.getItems().clear();
+
+        columnGeraetId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnGeraetBezeichnung.setCellValueFactory(new PropertyValueFactory<>("bezeichnung"));
+        columnGeraetTyp.setCellValueFactory(new PropertyValueFactory<>("typ"));
+        columnGeraetRaumId.setCellValueFactory(new PropertyValueFactory<>("raumId"));
+        columnGeraetInventarnummer.setCellValueFactory(new PropertyValueFactory<>("inventarnummer"));
+
+        try {
+            List<Geraet> geraeteListe = geraetRepository.holeAlle();
+            for (Geraet geraet : geraeteListe) {
+                geraetTable.getItems().add(geraet);
+            }
+            geraetTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        } catch (RepositoryException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,
+                    "Die Geräte können nicht aus der Datenbank ausgelesen werden.");
+            alert.show();
+        }
+    }
+
+    public Geraet zeigeGeraetDialogView(String title, Geraet geraetModel) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation((getClass().getResource("geraet-dialog-view.fxml")));
+            DialogPane geraetDialogPane = fxmlLoader.load();
+
+            GeraetDialogController geraetDialogController = fxmlLoader.getController();
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(geraetDialogPane);
+            dialog.setTitle(title);
+
+            geraetDialogController.setGeraet(geraetModel);
+
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+            if (clickedButton.get() == ButtonType.OK) {
+                return geraetDialogController.getGeraet();
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.setTitle("Fehler");
+            alert.show();
+        }
+        return null;
+    }
+
+    public void btnGeraetAnlegenAction(ActionEvent actionEvent) {
+        try {
+            Geraet neuesGeraet = new Geraet("Bezeichnung", "Typ");
+            if (null != zeigeGeraetDialogView("Gerät anlegen", neuesGeraet)) {
+                geraetRepository.erstelle(neuesGeraet);
+                zeigeGeraeteInTabelle();
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.show();
+        }
+    }
+
+    public void btnGeraetBearbeitenAction(ActionEvent actionEvent) {
+        Geraet geraetZurBearbeitung = geraetTable.getSelectionModel().getSelectedItem();
+
+        if (null == geraetZurBearbeitung) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Bitte wählen Sie ein Gerät aus der Liste aus.");
+            alert.setHeaderText("Kein Gerät selektiert");
+            alert.show();
+            return;
+        }
+
+        if (null != zeigeGeraetDialogView("Gerät bearbeiten", geraetZurBearbeitung)) {
+            try {
+                geraetRepository.aktualisiere(geraetZurBearbeitung);
+                zeigeGeraeteInTabelle();
+            } catch (RepositoryException e) {
+                zeigeDatenbankAlert(e.getMessage());
+            }
+        }
+    }
+
+    public void btnGeraetLoeschenAction(ActionEvent actionEvent) {
+        Geraet geraetZumLoeschen = geraetTable.getSelectionModel().getSelectedItem();
+
+        if (null == geraetZumLoeschen) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Bitte wählen Sie ein Gerät aus der Liste aus.");
+            alert.setHeaderText("Kein Gerät selektiert");
+            alert.show();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Wollen Sie das Gerät wirklich löschen?");
+        alert.setHeaderText("Kein Gerät selektiert");
+        Optional<ButtonType> clickedButton = alert.showAndWait();
+        if (clickedButton.get() == ButtonType.OK) {
+            try {
+                geraetRepository.loesche(geraetZumLoeschen);
+                zeigeGeraeteInTabelle();
             } catch (RepositoryException e) {
                 zeigeDatenbankAlert(e.getMessage());
             }

@@ -56,7 +56,7 @@ public class Raum {
     }
 
     public void setBreiteInCm(double breiteInCm) throws Exception {
-        if(laengeInCm < 0) {
+        if (laengeInCm < 0) {
             throw new Exception("Invalider Wert für Parameter breiteInCm (>0 cm!): " + breiteInCm);
         }
         this.breiteInCm = breiteInCm;
@@ -67,7 +67,7 @@ public class Raum {
     }
 
     public void setLaengeInCm(double laengeInCm) throws Exception {
-        if(laengeInCm < 0) {
+        if (laengeInCm < 0) {
             throw new Exception("Invalider Wert für Parameter laengeInCm (>0 cm!): " + laengeInCm);
         }
         this.laengeInCm = laengeInCm;
@@ -77,24 +77,32 @@ public class Raum {
         setLaengeInCm(seitenLaengeInCm);
         setBreiteInCm(seitenLaengeInCm);
     }
+
     public void setGroesse(double laengeInCm, double breiteInCm) throws Exception {
         setLaengeInCm(laengeInCm);
         setBreiteInCm(breiteInCm);
     }
 
     /**
-     * @TODO Untersuchen Sie die Methode auf etwaige Fehler und verbessern Sie diese.
-     * @return
+     * Berechnet die Fläche des Raums in Quadratmetern.
+     * 
+     * @return Die Fläche in qm (Länge * Breite, umgerechnet von cm² zu m²)
      */
     public double getFlaecheInQm() {
-        double flaeche = laengeInCm * breiteInCm;
-        return flaeche;
+        // cm² zu m² umrechnen: Division durch 10000 (100 cm pro Meter, 100² = 10000)
+        double flaecheInQm = (laengeInCm * breiteInCm) / 10000.0;
+        return flaecheInQm;
     }
 
-    /**
-     * @TODO Implementieren Sie die toString()-Methode mit einer sinnvollen Ausgabe selbst.
-     * @TODO Nutzen Sie die "Generate-Funktion" im Kontext-Menü von IntelliJ, um die Methode automatisch generieren zu lassen.
-     * @return
-     */
-
+    @Override
+    public String toString() {
+        return "Raum{" +
+                "id=" + id +
+                ", bezeichnung='" + bezeichnung + '\'' +
+                ", gebaeude='" + gebaeude + '\'' +
+                ", breiteInCm=" + breiteInCm +
+                ", laengeInCm=" + laengeInCm +
+                ", flaecheInQm=" + getFlaecheInQm() +
+                '}';
+    }
 }

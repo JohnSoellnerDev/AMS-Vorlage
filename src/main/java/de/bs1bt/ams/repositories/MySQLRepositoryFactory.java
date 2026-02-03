@@ -2,7 +2,8 @@ package de.bs1bt.ams.repositories;
 
 public class MySQLRepositoryFactory extends AbstractRepositoryFactory {
 
-    public MySQLRepositoryFactory() {}
+    public MySQLRepositoryFactory() {
+    }
 
     @Override
     public RaumRepository createRaumRepository() {
@@ -11,8 +12,6 @@ public class MySQLRepositoryFactory extends AbstractRepositoryFactory {
 
     @Override
     public GeraetRepository createGeraetRepository() {
-        // TODO: return new GeraetMySQLRepository();
-        return null;
+        return new GeraetMySQLRepository();
     }
 }
-
