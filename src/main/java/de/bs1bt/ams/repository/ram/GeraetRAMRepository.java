@@ -1,6 +1,8 @@
-package de.bs1bt.ams.repository;
+package de.bs1bt.ams.repository.ram;
 
 import de.bs1bt.ams.model.Geraet;
+import de.bs1bt.ams.repository.GeraetRepository;
+import de.bs1bt.ams.repository.RepositoryException;
 
 import java.util.ArrayList;
 import java.util.List;

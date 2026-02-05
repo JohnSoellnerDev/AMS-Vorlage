@@ -1,4 +1,9 @@
-package de.bs1bt.ams.repository;
+package de.bs1bt.ams.repository.factory;
+
+import de.bs1bt.ams.repository.*;
+import de.bs1bt.ams.repository.mysql.GebaeudeMySQLRepository;
+import de.bs1bt.ams.repository.mysql.GeraetMySQLRepository;
+import de.bs1bt.ams.repository.mysql.RaumMySQLRepository;
 
 public class MySQLRepositoryFactory extends AbstractRepositoryFactory {
 

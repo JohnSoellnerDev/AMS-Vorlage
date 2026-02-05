@@ -1,4 +1,6 @@
-package de.bs1bt.ams.repository;
+package de.bs1bt.ams.repository.factory;
+
+import de.bs1bt.ams.repository.RepositoryType;
 
 public class SimpleRepositoryFactoryFactory {
     

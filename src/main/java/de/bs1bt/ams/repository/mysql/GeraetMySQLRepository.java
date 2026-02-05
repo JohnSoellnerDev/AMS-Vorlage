@@ -1,7 +1,9 @@
-package de.bs1bt.ams.repository;
+package de.bs1bt.ams.repository.mysql;
 
 import de.bs1bt.ams.model.Geraet;
 import de.bs1bt.ams.config.DBCredentialsSingleton;
+import de.bs1bt.ams.repository.GeraetRepository;
+import de.bs1bt.ams.repository.RepositoryException;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package de.bs1bt.ams.service;
 
 import de.bs1bt.ams.model.Geraet;
-import de.bs1bt.ams.repository.GeraetJpaRepository;
+import de.bs1bt.ams.repository.jpa.GeraetJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

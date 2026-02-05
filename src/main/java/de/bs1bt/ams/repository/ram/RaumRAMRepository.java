@@ -1,6 +1,8 @@
-package de.bs1bt.ams.repository;
+package de.bs1bt.ams.repository.ram;
 
 import de.bs1bt.ams.model.Raum;
+import de.bs1bt.ams.repository.RaumRepository;
+import de.bs1bt.ams.repository.RepositoryException;
 
 import java.util.ArrayList;
 import java.util.List;

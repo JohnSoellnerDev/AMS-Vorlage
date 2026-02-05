@@ -1,7 +1,7 @@
 package de.bs1bt.ams.service;
 
 import de.bs1bt.ams.model.Gebaeude;
-import de.bs1bt.ams.repository.GebaeudeJpaRepository;
+import de.bs1bt.ams.repository.jpa.GebaeudeJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
