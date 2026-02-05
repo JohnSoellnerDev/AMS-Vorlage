@@ -1,45 +1,58 @@
+# Build outputs
 target/
-!.mvn/wrapper/maven-wrapper.jar
+build/
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+# Maven wrapper (keep jar)
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE - IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### Eclipse ###
+# IDE - Eclipse
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### NetBeans ###
+# IDE - NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+# IDE - VS Code
 .vscode/
 
-### Mac OS ###
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-.idea
-Burger Factory/.idea
-mvc-observer-tasks/.idea
-ObserverExercises/.idea
-ams-algorithmen/.idea
-serverroom-sensor-mvc-swing/.idea
+# Logs
+*.log
+logs/
+
+# Java
+*.class
+*.jar
+!**/src/main/**/lib/*.jar
+
+# Package files
+*.war
+*.ear
+*.nar
