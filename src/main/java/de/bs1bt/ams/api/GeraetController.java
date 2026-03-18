@@ -25,7 +25,7 @@ public class GeraetController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Geraet> getGeraetById(@PathVariable Integer id) {
+    public ResponseEntity<Geraet> getGeraetById(@PathVariable("id") int id) {
         return geraetService.getGeraetById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -37,14 +37,14 @@ public class GeraetController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Geraet> updateGeraet(@PathVariable int id, @RequestBody Geraet geraetDetails) {
+    public ResponseEntity<Geraet> updateGeraet(@PathVariable("id") int id, @RequestBody Geraet geraetDetails) {
         return geraetService.updateGeraet(id, geraetDetails)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGeraet(@PathVariable int id) {
+    public ResponseEntity<Void> deleteGeraet(@PathVariable("id") int id) {
         geraetService.deleteGeraet(id);
         return ResponseEntity.ok().build();
     }

@@ -1,5 +1,6 @@
 package de.bs1bt.ams.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Gebaeude {
     @Column(name = "adresse")
     private String adresse;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "gebaeude", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Raum> raeume = new ArrayList<>();
 
